@@ -2,7 +2,6 @@
 # project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
-enable_testing()
 
 # Add source to this project's executable.
 add_executable (CMakeProject1 "CMakeProject1.cpp" "CMakeProject1.h")

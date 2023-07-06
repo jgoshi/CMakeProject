@@ -20,6 +20,11 @@ jobs:
         build_type: [Release]
         generator: [Ninja]
         compiler: [gcc, clang, cl]
+        include:
+          - os: windows-latest
+            make_program: ninja
+          - os: ubuntu-latest
+            make_program: ninja-build
         exclude:
           - os: windows-latest
             compiler: gcc
@@ -36,7 +41,7 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_CXX_COMPILER=${{matrix.compiler}} -DCMAKE_C_COMPILER=${{matrix.compiler}} -DCMAKE_MAKE_PROGRAM="${{matrix.generator}}" -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -S ${{github.workspace}} -G "${{matrix.generator}}"
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_CXX_COMPILER=${{matrix.compiler}} -DCMAKE_C_COMPILER=${{matrix.compiler}} -DCMAKE_MAKE_PROGRAM="${{matrix.make_program}}" -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -S ${{github.workspace}} -G "${{matrix.generator}}"
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build

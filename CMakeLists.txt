@@ -2,7 +2,7 @@
 # and include sub-projects here.
 #
 cmake_minimum_required (VERSION 3.8)
-
+enable_testing()
 project ("CMakeProject1")
 
 # Include sub-projects.
