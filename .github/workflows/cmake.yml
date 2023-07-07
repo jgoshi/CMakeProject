@@ -15,8 +15,10 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         build_type: [Release]
-        generator: [Ninja]
         compiler: [gcc, clang, cl]
+        include:
+          - os: windows-latest
+            generator: [Ninja]
         exclude:
           - os: windows-latest
             compiler: gcc
