@@ -18,7 +18,7 @@ jobs:
         compiler: [gcc, clang, cl]
         include:
           - os: windows-latest
-            generator: -G Ninja
+            addtion_args: -G Ninja
         exclude:
           - os: windows-latest
             compiler: gcc
@@ -30,18 +30,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install Ninja
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install ninja-build
-
     - name: Find Compiler
       if: matrix.os == 'windows-latest'
       uses: ilammy/msvc-dev-cmd@v1
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_CXX_COMPILER=${{matrix.compiler}} -DCMAKE_C_COMPILER=${{matrix.compiler}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -S ${{github.workspace}} "${{matrix.generator}}"
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_CXX_COMPILER=${{matrix.compiler}} -DCMAKE_C_COMPILER=${{matrix.compiler}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -S ${{github.workspace}} ${{matrix.addtion_args}}
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build
